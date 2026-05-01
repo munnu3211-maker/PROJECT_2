@@ -1,0 +1,1021 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* ============================================
+   VotePath AI — Premium Design System (Light/Government)
+   ============================================ */
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-primary-glow: var(--color-primary-glow);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-glow: var(--color-secondary-glow);
+  --color-accent: var(--color-accent);
+  --color-accent-glow: var(--color-accent-glow);
+  --color-warning: var(--color-warning);
+
+  --color-bg-dark: var(--color-bg-dark);
+  --color-bg-card: var(--color-bg-card);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-input: var(--color-bg-input);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+
+  --color-border: var(--color-border);
+  --color-border-glow: var(--color-border-glow);
+
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --color-primary: #E65100;
+  /* Deep Saffron */
+  --color-primary-glow: #FF6D00;
+  --color-primary-dark: #BF360C;
+  --color-secondary: #1B5E20;
+  /* India Green */
+  --color-secondary-glow: #2E7D32;
+  --color-accent: #000080;
+  /* Navy / Ashoka Blue */
+  --color-accent-glow: #1A237E;
+  --color-warning: #DC2626;
+
+  --color-bg-dark: #FFFAF5;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #FFF3E0;
+  --color-bg-input: #FFFFFF;
+
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #5D4037;
+  --color-text-muted: #8D6E63;
+
+  --color-border: #FFCCBC;
+  --color-border-glow: #FF9933;
+
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-static-bg: #FFFFFF;
+  --chat-assistant-bg: #FFF3E0;
+}
+
+.dark {
+  --color-primary: #FF9933;
+  /* Bright Saffron */
+  --color-primary-glow: #FFB74D;
+  --color-primary-dark: #E65100;
+  --color-secondary: #4CAF50;
+  /* Bright India Green */
+  --color-secondary-glow: #66BB6A;
+  --color-accent: #5C6BC0;
+  /* Ashoka Blue */
+  --color-accent-glow: #7986CB;
+  --color-warning: #EF4444;
+
+  --color-bg-dark: #0A0A0A;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1C1C1C;
+  --color-bg-input: #1E1E1E;
+
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #BDBDBD;
+  --color-text-muted: #757575;
+
+  --color-border: #2A2A2A;
+  --color-border-glow: #FF993333;
+
+  --glass-bg: linear-gradient(135deg, rgba(20, 20, 20, 0.85), rgba(28, 28, 28, 0.65));
+  --glass-static-bg: rgba(20, 20, 20, 0.95);
+  --chat-assistant-bg: linear-gradient(135deg, rgba(28, 28, 28, 0.95), rgba(20, 20, 20, 0.9));
+}
+
+/* ============================================
+   Global Base Styles
+   ============================================ */
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+}
+
+/* ============================================
+   Glassmorphism Cards (Light)
+   ============================================ */
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--color-primary-glow);
+  box-shadow: 0 10px 15px -3px rgba(15, 61, 129, 0.1), 0 4px 6px -2px rgba(15, 61, 129, 0.05);
+  transform: translateY(-2px);
+}
+
+.glass-card-static {
+  background: var(--glass-static-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* ============================================
+   Gradient Text
+   ============================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, #FF9933, #138808);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #FF6D00, #FF9933);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(15, 61, 129, 0.2);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 12px rgba(15, 61, 129, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(15, 61, 129, 0.05);
+  box-shadow: 0 4px 6px rgba(15, 61, 129, 0.1);
+}
+
+/* ============================================
+   Input Styles
+   ============================================ */
+
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: var(--font-inter);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(15, 61, 129, 0.15);
+}
+
+.input-field::placeholder {
+  color: var(--color-text-muted);
+}
+
+select.input-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ============================================
+   Animated Background
+   ============================================ */
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(15, 61, 129, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 61, 129, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.bg-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   Section Styles
+   ============================================ */
+
+.section-title {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-primary);
+}
+
+.section-subtitle {
+  color: var(--color-text-secondary);
+  font-size: clamp(0.8rem, 0.75rem + 0.2vw, 0.9rem);
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   Timeline Component
+   ============================================ */
+
+.tl-container {
+  position: relative;
+  padding-left: 28px;
+}
+
+/* Vertical line — stretches from first dot to last dot */
+.tl-container::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 14px;
+  /* align with first dot center */
+  bottom: 14px;
+  /* align with last dot center */
+  width: 2px;
+  background: linear-gradient(to bottom,
+      var(--color-primary) 0%,
+      var(--color-primary) 30%,
+      var(--color-border) 100%);
+  border-radius: 2px;
+}
+
+.tl-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 16px;
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Dot wrapper — positions dot on the line */
+.tl-dot-wrap {
+  position: absolute;
+  left: -28px;
+  top: 14px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The dot itself */
+.tl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px;
+  transition: all 0.3s ease;
+  z-index: 1;
+  background-clip: padding-box;
+}
+
+/* Content card */
+.tl-content {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid;
+  min-width: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .tl-container {
+    padding-left: 24px;
+  }
+
+  .tl-container::before {
+    left: 7px;
+    top: 14px;
+    bottom: 14px;
+  }
+
+  .tl-dot-wrap {
+    left: -24px;
+    width: 16px;
+  }
+
+  .tl-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .tl-content {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+}
+
+/* ============================================
+   Progress Ring
+   ============================================ */
+
+.progress-ring-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring-bg {
+  stroke: var(--color-border);
+}
+
+.progress-ring-fill {
+  transition: stroke-dashoffset 1s ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(15, 61, 129, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(15, 61, 129, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg,
+      var(--color-bg-card) 25%,
+      var(--color-bg-elevated) 50%,
+      var(--color-bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ============================================
+   Checklist Styles
+   ============================================ */
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.checklist-item:hover {
+  border-color: var(--color-primary);
+  background: rgba(15, 61, 129, 0.02);
+}
+
+.checklist-item.completed {
+  border-color: var(--color-secondary);
+  background: rgba(22, 163, 74, 0.05);
+}
+
+/* ============================================
+   Timeline
+   ============================================ */
+
+.timeline-line {
+  position: absolute;
+  left: 19px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  background: var(--color-bg-card);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.timeline-dot.completed {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.timeline-dot.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(15, 61, 129, 0.3);
+}
+
+/* ============================================
+   AI Status Badge
+   ============================================ */
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ai-badge-local {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--color-secondary);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.ai-badge-cloud {
+  background: rgba(15, 61, 129, 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(15, 61, 129, 0.2);
+}
+
+.ai-badge-offline {
+  background: rgba(249, 115, 22, 0.1);
+  color: var(--color-accent);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+/* ============================================
+   Quiz Styles
+   ============================================ */
+
+.quiz-option {
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--color-bg-elevated);
+}
+
+.quiz-option:hover {
+  border-color: var(--color-primary);
+  background: rgba(15, 61, 129, 0.05);
+}
+
+.quiz-option.selected {
+  border-color: var(--color-primary);
+  background: rgba(15, 61, 129, 0.1);
+}
+
+.quiz-option.correct {
+  border-color: var(--color-secondary);
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.quiz-option.wrong {
+  border-color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.1rem;
+    gap: 0.5rem;
+  }
+
+  .glass-card {
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .glass-card-static {
+    padding: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .input-field {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .chat-bubble-user,
+  .chat-bubble-assistant {
+    padding: 10px 14px;
+    font-size: 13px;
+    max-width: 88%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .glass-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 9px 16px;
+    font-size: 12px;
+  }
+}
+
+/* ============================================
+   Enhanced Chat Bubbles
+   ============================================ */
+
+.chat-bubble-user {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  padding: 14px 18px;
+  max-width: 75%;
+  align-self: flex-end;
+  box-shadow: 0 4px 10px rgba(15, 61, 129, 0.15);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.chat-bubble-assistant {
+  background: var(--chat-assistant-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: 18px 18px 18px 4px;
+  padding: 14px 18px;
+  max-width: 80%;
+  align-self: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ── Premium Chat Content Formatting ────────────────────────── */
+
+/* Headings — colored left border accent */
+.chat-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 12px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+  border-left: 3px solid var(--color-primary);
+  line-height: 1.4;
+}
+
+.chat-heading:first-child {
+  margin-top: 2px;
+}
+
+.chat-subheading {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 8px;
+  margin-bottom: 4px;
+  padding-left: 8px;
+  border-left: 2px solid var(--color-secondary);
+}
+
+/* Bullet group — grouped with subtle background */
+.chat-bullet-group {
+  background: rgba(var(--color-primary-rgb, 79, 70, 229), 0.04);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.chat-bullet-dot {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Numbered steps — badge style */
+.chat-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 5px 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.chat-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #3730a3));
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Inline links — clickable with accent */
+.chat-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.78rem;
+  background: rgba(var(--color-primary-rgb, 79, 70, 229), 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  word-break: break-all;
+}
+
+.chat-link:hover {
+  background: rgba(var(--color-primary-rgb, 79, 70, 229), 0.16);
+  text-decoration: underline;
+}
+
+/* Next Step callout — highlighted box */
+.chat-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,
+    rgba(var(--color-primary-rgb, 79, 70, 229), 0.08),
+    rgba(var(--color-primary-rgb, 79, 70, 229), 0.03));
+  border: 1px solid rgba(var(--color-primary-rgb, 79, 70, 229), 0.15);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.chat-callout-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Paragraph spacing */
+.chat-paragraph {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 2px 0;
+  color: var(--color-text-secondary, var(--color-text-primary));
+}
+
+/* Hide chat scrollbar on mobile */
+.chat-scroll-hide {
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.chat-scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .chat-bubble-user {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .chat-bubble-assistant {
+    max-width: 90%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ============================================
+   Premium Table Styles
+   ============================================ */
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table thead tr {
+  background: rgba(15, 61, 129, 0.05);
+}
+
+table thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   Pulse dot animation
+   ============================================ */
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Floating animation
+   ============================================ */
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   Gradient border glow
+   ============================================ */
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* Skip-to-content link — hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Focus-visible styles for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remove default outline only when focus-visible is supported */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Screen reader only — visually hidden, accessible to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .glass-card:hover {
+    transform: none;
+  }
+
+  .btn-primary:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode improvements */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text-muted: #5D4037;
+    --color-border: #8D6E63;
+  }
+
+  .dark {
+    --color-text-muted: #BDBDBD;
+    --color-border: #616161;
+  }
+}
