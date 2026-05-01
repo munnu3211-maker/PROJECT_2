@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# PROJECT_2
+=======
 # VotePath AI — Personalized Election Journey Assistant
 
 > 🗳️ AI-powered platform that guides Indian citizens through the entire voting process using official Election Commission of India (ECI) data.
@@ -176,3 +179,4 @@ VITE_FIREBASE_PROJECT_ID=...
 Built for the **VirtualPromptWar** Hackathon by Google & Hack2skill.
 
 #VirtualPromptWar #GoogleCloud #Hack2Skill #BuiltWithGemini
+>>>>>>> 16e9e9a (Initial commit)

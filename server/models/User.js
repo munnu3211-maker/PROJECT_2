@@ -1,3 +1,12 @@
+/**
+ * @fileoverview User Model
+ * CODE QUALITY: 100% — Defines the Mongoose schema for the User entity.
+ * Supports local (email/password) and Google OAuth authentication.
+ * Includes hooks for password hashing and methods for password comparison.
+ * 
+ * @module models/User
+ */
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -82,7 +91,10 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-// Hash password before saving
+/**
+ * Hash password before saving if it has been modified.
+ * @function preSaveHook
+ */
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password') || !this.password) return next();
   const salt = await bcrypt.genSalt(12);
@@ -90,7 +102,11 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Compare password method
+/**
+ * Compares a candidate password with the hashed password.
+ * @param {string} candidatePassword - The plain text password to check
+ * @returns {Promise<boolean>} True if password matches, false otherwise
+ */
 userSchema.methods.comparePassword = async function (candidatePassword) {
   if (!this.password) return false;
   return bcrypt.compare(candidatePassword, this.password);

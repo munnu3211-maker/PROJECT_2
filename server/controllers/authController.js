@@ -12,55 +12,13 @@
 
 const User = require('../models/User');
 const Checklist = require('../models/Checklist');
+const { calcReadinessScore, createChecklist } = require('../utils/userUtils');
 const { asyncHandler } = require('../middleware/errorHandler');
 const { generateToken } = require('../middleware/authMiddleware');
 const admin = require('../config/firebase');
 const { firebaseInitialized } = require('../config/firebase');
 
-// Default checklist items for new users
-const DEFAULT_CHECKLIST = [
-  { key: 'check_eligibility', label: 'Check Voter Eligibility', description: 'Verify you meet the age and citizenship requirements to vote.' },
-  { key: 'register', label: 'Register as a Voter', description: 'Apply for voter registration through Form 6 on the NVSP portal.' },
-  { key: 'get_voter_id', label: 'Get Voter ID Card (EPIC)', description: 'Receive or download your Voter ID card after registration approval.' },
-  { key: 'verify_details', label: 'Verify Your Details in Voter List', description: 'Check that your name, address, and photo are correct in the electoral roll.' },
-  { key: 'find_booth', label: 'Find Your Polling Booth', description: 'Locate your assigned polling station using the Electoral Search portal.' },
-  { key: 'prepare_documents', label: 'Prepare Required Documents', description: 'Keep your Voter ID and one additional photo ID ready for election day.' },
-  { key: 'vote', label: 'Cast Your Vote', description: 'Visit your polling booth on election day and cast your vote on the EVM.' },
-];
 
-// Helper: create checklist for user
-const createChecklist = async (user) => {
-  const checklistItems = DEFAULT_CHECKLIST.map(item => ({
-    ...item,
-    completed: false,
-  }));
-
-  if (user.age >= 18) {
-    const item = checklistItems.find(i => i.key === 'check_eligibility');
-    if (item) { item.completed = true; item.completedAt = new Date(); }
-  }
-  if (user.voterStatus === 'registered') {
-    const item = checklistItems.find(i => i.key === 'register');
-    if (item) { item.completed = true; item.completedAt = new Date(); }
-  }
-  if (user.hasVoterId) {
-    const item = checklistItems.find(i => i.key === 'get_voter_id');
-    if (item) { item.completed = true; item.completedAt = new Date(); }
-  }
-
-  return Checklist.create({ userId: user._id, items: checklistItems });
-};
-
-// Helper: calculate readiness score
-const calcReadinessScore = (data) => {
-  let score = 0;
-  if (data.voterStatus === 'registered') score += 30;
-  else if (data.voterStatus === 'applied') score += 15;
-  if (data.hasVoterId) score += 25;
-  if (data.age >= 18) score += 10;
-  if (data.pincode) score += 5;
-  return score;
-};
 
 // Helper: send user response with token
 const sendAuthResponse = (res, user, statusCode = 200) => {
@@ -77,6 +35,10 @@ const sendAuthResponse = (res, user, statusCode = 200) => {
 // ─────────────────────────────────────────────────────────
 // POST /api/auth/register — Email + Password Registration
 // ─────────────────────────────────────────────────────────
+/**
+ * Register a new user and initialize their profile.
+ * @route POST /api/auth/register
+ */
 const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -107,6 +69,10 @@ const register = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 // POST /api/auth/login — Email + Password Login
 // ─────────────────────────────────────────────────────────
+/**
+ * Log in an existing user.
+ * @route POST /api/auth/login
+ */
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 

@@ -12,6 +12,12 @@ const crypto = require('crypto');
 const ResponseCache = require('../models/ResponseCache');
 
 class CacheService {
+  /**
+   * Generates an MD5 hash for a prompt and its context.
+   * @param {string} prompt 
+   * @param {string} [context=''] 
+   * @returns {string} MD5 hash
+   */
   generateHash(prompt, context = '') {
     const content = `${prompt}|${context}`;
     return crypto.createHash('md5').update(content).digest('hex');
